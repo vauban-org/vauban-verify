@@ -9,13 +9,13 @@ name: vauban-verify CI
 on:
   pull_request:
     paths:
-      - "tools/vauban-verify/**"
+      - "./**"
       - "src/proof/poseidon-hasher.ts"
       - ".github/workflows/vauban-verify-ci.yml"
   push:
     branches: [main]
     paths:
-      - "tools/vauban-verify/**"
+      - "./**"
       - "src/proof/poseidon-hasher.ts"
       - ".github/workflows/vauban-verify-ci.yml"
 
@@ -52,16 +52,16 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install hatch pytest "starknet-py>=0.24.0"
-          pip install -e tools/vauban-verify
+          pip install -e .
 
       - name: Run pytest
-        working-directory: tools/vauban-verify
+        
         run: python -m pytest tests/ -v
 
       - name: Regenerate vectors and diff against pinned file
         run: |
-          ./node_modules/.bin/tsx tools/vauban-verify/tests/generate-vectors.ts > /tmp/regen.json
-          diff -u tools/vauban-verify/tests/cross-lang-vectors.json /tmp/regen.json
+          ./node_modules/.bin/tsx ./tests/generate-vectors.ts > /tmp/regen.json
+          diff -u ./tests/cross-lang-vectors.json /tmp/regen.json
         # If this step fails, either:
         #   - The TS reference has drifted (intentional → commit regenerated JSON)
         #   - Or someone edited the JSON without regenerating (revert the edit)

@@ -35,17 +35,17 @@ jobs:
         run: python -m pip install --upgrade pip hatch
 
       - name: Build distributions
-        working-directory: tools/vauban-verify
+        
         run: hatch build
 
       - name: List artefacts
-        working-directory: tools/vauban-verify
+        
         run: ls -la dist/
 
       - uses: actions/upload-artifact@v4
         with:
           name: vauban-verify-dist
-          path: tools/vauban-verify/dist/
+          path: dist/
 
   publish:
     name: Publish to PyPI (Trusted Publisher)
