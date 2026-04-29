@@ -1,0 +1,502 @@
+[
+  {
+    "name": "step_leaf_simple",
+    "kind": "step_leaf",
+    "input": {
+      "step": "init"
+    },
+    "expected_hash": "0x1b0b311bbf8eb42bfd6a03be09eb175b5ea57157460213c88358cf47bbff027"
+  },
+  {
+    "name": "step_leaf_int",
+    "kind": "step_leaf",
+    "input": {
+      "step": "build",
+      "ts": 1700000000
+    },
+    "expected_hash": "0x73e7b31f31c2b608b816fc91342665238ab6c10d292887f94addb270dd24bda"
+  },
+  {
+    "name": "step_leaf_negative_int",
+    "kind": "step_leaf",
+    "input": {
+      "delta": -42
+    },
+    "expected_hash": "0x67fbaf51371126f7b2459ba52f1399e1fbc023efa4c3e123275bbf2a5526715"
+  },
+  {
+    "name": "step_leaf_zero",
+    "kind": "step_leaf",
+    "input": {
+      "x": 0
+    },
+    "expected_hash": "0x55242e737cad656c5170f2823ad14b7730ae3cdef32d1ca797987e39c06b5dc"
+  },
+  {
+    "name": "step_leaf_neg_zero",
+    "kind": "step_leaf",
+    "input": {
+      "v": 0
+    },
+    "expected_hash": "0x5f192253def2d04f3a40edabcb96f0605c190ed74e07205ee105740a1f1f5bb"
+  },
+  {
+    "name": "step_leaf_large_int",
+    "kind": "step_leaf",
+    "input": {
+      "count": 9007199254740992
+    },
+    "expected_hash": "0x2432be54607d49e5107360909f4b23e2fde38321b5cf02970eb8a046c965dc7"
+  },
+  {
+    "name": "step_leaf_float_pi",
+    "kind": "step_leaf",
+    "input": {
+      "pi": 3.141592653589793
+    },
+    "expected_hash": "0x2e0f5da5ff8bbdfe8f3d4d5662a69f762dbbad7b65c74d1b5d4068056b3a6b6"
+  },
+  {
+    "name": "step_leaf_bool",
+    "kind": "step_leaf",
+    "input": {
+      "yes": true,
+      "no": false
+    },
+    "expected_hash": "0x37123bccfa94704ea00a5e178d0e16531a378643335e9a484d01f5efd1f1384"
+  },
+  {
+    "name": "step_leaf_null",
+    "kind": "step_leaf",
+    "input": {
+      "v": null
+    },
+    "expected_hash": "0x507cfdb151aedc59252e39088a0e1f7aeea659a717c448834939f1df10a88ae"
+  },
+  {
+    "name": "step_leaf_empty_str",
+    "kind": "step_leaf",
+    "input": {
+      "s": ""
+    },
+    "expected_hash": "0x3c991f8f42d192f6e6f20aaff12cfab3f2f286129fc8ff0c3a54f1279756fa8"
+  },
+  {
+    "name": "step_leaf_unicode_emoji",
+    "kind": "step_leaf",
+    "input": {
+      "msg": "hello 🌍"
+    },
+    "expected_hash": "0x2ed7ee8951929c7c3939b21adaaedf3d571e01186aa92eea195317b04f05ca2"
+  },
+  {
+    "name": "step_leaf_unicode_naive",
+    "kind": "step_leaf",
+    "input": {
+      "word": "naïve"
+    },
+    "expected_hash": "0x1e1bcf4e2ec28c4128f828f827fcdca3abfd0ac46ec35737df3b0d2df847be8"
+  },
+  {
+    "name": "step_leaf_quotes",
+    "kind": "step_leaf",
+    "input": {
+      "phrase": "he said \"hi\""
+    },
+    "expected_hash": "0x61da52bd110f1429e2ce6d43dbc8a9aec141d45d0a14d90f6805cea933a3ff4"
+  },
+  {
+    "name": "step_leaf_keys_unsorted",
+    "kind": "step_leaf",
+    "input": {
+      "z": 1,
+      "a": 2,
+      "m": 3
+    },
+    "expected_hash": "0x9bb736dfd3ea973065fe407a6a799fdb7882850aa55795a3f9a9814f1c9ab"
+  },
+  {
+    "name": "step_leaf_run_step_realistic",
+    "kind": "step_leaf",
+    "input": {
+      "step_id": "step-001",
+      "type": "decision",
+      "agent": "BUILDER",
+      "run_id": "run-abc-123",
+      "status": "ok",
+      "ts": 1700000123,
+      "meta": {
+        "iteration": 2,
+        "score": 0.87
+      }
+    },
+    "expected_hash": "0x52373c5bf51aced9aff0c73f1c87dad7d727672bb78fe96079dab822759a203"
+  },
+  {
+    "name": "merkle_single_leaf",
+    "kind": "merkle_root",
+    "input": {
+      "payloads": [
+        {
+          "step": "only",
+          "ts": 1
+        }
+      ]
+    },
+    "expected_hash": "0x3728b6ce58c272be77f435d3f4f32b9ac15726f1760420384fc9bb469e016d0"
+  },
+  {
+    "name": "merkle_two_leaves",
+    "kind": "merkle_root",
+    "input": {
+      "payloads": [
+        {
+          "step": "a"
+        },
+        {
+          "step": "b"
+        }
+      ]
+    },
+    "expected_hash": "0x21be41dc391b852ace10002f0eb7ca5fd911b71d8e2058849c14ef2537f3f55"
+  },
+  {
+    "name": "merkle_three_leaves_pads_to_four",
+    "kind": "merkle_root",
+    "input": {
+      "payloads": [
+        {
+          "step": "a"
+        },
+        {
+          "step": "b"
+        },
+        {
+          "step": "c"
+        }
+      ]
+    },
+    "expected_hash": "0x564ba53f7b1ae0d915952a62361741b90ecb9b87b06f7a7313326a36526c203"
+  },
+  {
+    "name": "merkle_four_pinned_reference",
+    "kind": "merkle_root",
+    "input": {
+      "payloads": [
+        {
+          "step": "init",
+          "ts": 1700000000
+        },
+        {
+          "step": "build",
+          "ts": 1700000001
+        },
+        {
+          "step": "test",
+          "ts": 1700000002
+        },
+        {
+          "step": "deploy",
+          "ts": 1700000003
+        }
+      ]
+    },
+    "expected_hash": "0x553705d38a32cf531ca2ae343abf9e85d3ab515f63bc158c7cd20c66a4a2c8c"
+  },
+  {
+    "name": "merkle_five_leaves_pads_to_eight",
+    "kind": "merkle_root",
+    "input": {
+      "payloads": [
+        {
+          "n": 0
+        },
+        {
+          "n": 1
+        },
+        {
+          "n": 2
+        },
+        {
+          "n": 3
+        },
+        {
+          "n": 4
+        }
+      ]
+    },
+    "expected_hash": "0x2761daaa963a90ca0db9d9fa7b03469ca7b2452f539fb36e3ad88b7b261da16"
+  },
+  {
+    "name": "merkle_eight_leaves",
+    "kind": "merkle_root",
+    "input": {
+      "payloads": [
+        {
+          "step": "step_0",
+          "idx": 0
+        },
+        {
+          "step": "step_1",
+          "idx": 1
+        },
+        {
+          "step": "step_2",
+          "idx": 2
+        },
+        {
+          "step": "step_3",
+          "idx": 3
+        },
+        {
+          "step": "step_4",
+          "idx": 4
+        },
+        {
+          "step": "step_5",
+          "idx": 5
+        },
+        {
+          "step": "step_6",
+          "idx": 6
+        },
+        {
+          "step": "step_7",
+          "idx": 7
+        }
+      ]
+    },
+    "expected_hash": "0x1e3b498940c2599a1ce638188d180a8ea4c2bbf55dd50d84246725fa0c1fba3"
+  },
+  {
+    "name": "merkle_order_independence_a_b_c",
+    "kind": "merkle_root",
+    "input": {
+      "payloads": [
+        {
+          "n": 0
+        },
+        {
+          "n": 1
+        },
+        {
+          "n": 2
+        }
+      ]
+    },
+    "expected_hash": "0x625c2946d8d21d8978fc740a74db0fd4dfb76787d1e68f1fb5ab41cd1861f9e"
+  },
+  {
+    "name": "merkle_order_independence_c_b_a",
+    "kind": "merkle_root",
+    "input": {
+      "payloads": [
+        {
+          "n": 2
+        },
+        {
+          "n": 1
+        },
+        {
+          "n": 0
+        }
+      ]
+    },
+    "expected_hash": "0x625c2946d8d21d8978fc740a74db0fd4dfb76787d1e68f1fb5ab41cd1861f9e"
+  },
+  {
+    "name": "merkle_unicode_payloads",
+    "kind": "merkle_root",
+    "input": {
+      "payloads": [
+        {
+          "msg": "café"
+        },
+        {
+          "msg": "naïve"
+        },
+        {
+          "msg": "hello 🌍"
+        }
+      ]
+    },
+    "expected_hash": "0x722d73bc8a1337e4bdb3bd227562133d53790f7378ad360bff1b16c9b8ef90a"
+  },
+  {
+    "name": "merkle_mixed_types",
+    "kind": "merkle_root",
+    "input": {
+      "payloads": [
+        {
+          "v": null
+        },
+        {
+          "v": true
+        },
+        {
+          "v": 0
+        },
+        {
+          "v": "string"
+        }
+      ]
+    },
+    "expected_hash": "0x45a8641de193cd22c803b1eba8abf6662156c6d6e7eabe7359ed5ffb9b5d376"
+  },
+  {
+    "name": "merkle_nested_objects",
+    "kind": "merkle_root",
+    "input": {
+      "payloads": [
+        {
+          "outer": {
+            "z": 1,
+            "a": 2
+          },
+          "b": "x"
+        },
+        {
+          "outer": {
+            "a": 2,
+            "z": 1
+          },
+          "b": "x"
+        }
+      ]
+    },
+    "expected_hash": "0x2fffb6d945367afd822beb8c173e36a9ede4121e048486467958e1832980e0b"
+  },
+  {
+    "name": "merkle_large_int_leaf",
+    "kind": "merkle_root",
+    "input": {
+      "payloads": [
+        {
+          "count": 9007199254740992
+        },
+        {
+          "count": 9007199254740992
+        }
+      ]
+    },
+    "expected_hash": "0x43ad843b5d593a6510df8d3976d28a1031ba12b4e31a6c52dc8a0e0d8909408"
+  },
+  {
+    "name": "merkle_realistic_run_chain",
+    "kind": "merkle_root",
+    "input": {
+      "payloads": [
+        {
+          "step_id": "s1",
+          "type": "decision",
+          "agent": "ARCHITECT",
+          "ts": 1700000001
+        },
+        {
+          "step_id": "s2",
+          "type": "tool_call",
+          "agent": "BUILDER",
+          "ts": 1700000002
+        },
+        {
+          "step_id": "s3",
+          "type": "verification",
+          "agent": "TESTER",
+          "ts": 1700000003
+        },
+        {
+          "step_id": "s4",
+          "type": "summary",
+          "agent": "SCRIBE",
+          "ts": 1700000004
+        }
+      ]
+    },
+    "expected_hash": "0x3fc550f56dcc0d53f480afd61c0f82eacba8a3573c59fcfc21ae308d9bbddcf"
+  },
+  {
+    "name": "merkle_padding_only_one_leaf",
+    "kind": "merkle_root",
+    "input": {
+      "payloads": [
+        {
+          "solo": true
+        }
+      ]
+    },
+    "expected_hash": "0x59cdc1770ca4208813f33150e91d7154ad779039df0d330fef3d6721fd88861"
+  },
+  {
+    "name": "merkle_sixteen_leaves",
+    "kind": "merkle_root",
+    "input": {
+      "payloads": [
+        {
+          "idx": 0,
+          "ts": 1700000100
+        },
+        {
+          "idx": 1,
+          "ts": 1700000101
+        },
+        {
+          "idx": 2,
+          "ts": 1700000102
+        },
+        {
+          "idx": 3,
+          "ts": 1700000103
+        },
+        {
+          "idx": 4,
+          "ts": 1700000104
+        },
+        {
+          "idx": 5,
+          "ts": 1700000105
+        },
+        {
+          "idx": 6,
+          "ts": 1700000106
+        },
+        {
+          "idx": 7,
+          "ts": 1700000107
+        },
+        {
+          "idx": 8,
+          "ts": 1700000108
+        },
+        {
+          "idx": 9,
+          "ts": 1700000109
+        },
+        {
+          "idx": 10,
+          "ts": 1700000110
+        },
+        {
+          "idx": 11,
+          "ts": 1700000111
+        },
+        {
+          "idx": 12,
+          "ts": 1700000112
+        },
+        {
+          "idx": 13,
+          "ts": 1700000113
+        },
+        {
+          "idx": 14,
+          "ts": 1700000114
+        },
+        {
+          "idx": 15,
+          "ts": 1700000115
+        }
+      ]
+    },
+    "expected_hash": "0x6138a8e59d76d82b63725eae67093d2dfad6efd044aa5cb855848c49b1e8e67"
+  }
+]

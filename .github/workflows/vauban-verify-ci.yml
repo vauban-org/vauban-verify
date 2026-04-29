@@ -1,0 +1,67 @@
+name: vauban-verify CI
+
+# Runs on PRs that touch the vauban-verify package or its TypeScript reference.
+# Asserts:
+#   1. pytest passes (51 tests including 30 cross-lang vectors)
+#   2. Re-running the TS generator produces a JSON file bit-identical to the
+#      committed cross-lang-vectors.json (any drift fails the build)
+
+on:
+  pull_request:
+    paths:
+      - "tools/vauban-verify/**"
+      - "src/proof/poseidon-hasher.ts"
+      - ".github/workflows/vauban-verify-ci.yml"
+  push:
+    branches: [main]
+    paths:
+      - "tools/vauban-verify/**"
+      - "src/proof/poseidon-hasher.ts"
+      - ".github/workflows/vauban-verify-ci.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    name: pytest + cross-lang regen check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
+      - name: Setup Node 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+
+      - name: Install Node dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Setup Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install Python dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install hatch pytest "starknet-py>=0.24.0"
+          pip install -e tools/vauban-verify
+
+      - name: Run pytest
+        working-directory: tools/vauban-verify
+        run: python -m pytest tests/ -v
+
+      - name: Regenerate vectors and diff against pinned file
+        run: |
+          ./node_modules/.bin/tsx tools/vauban-verify/tests/generate-vectors.ts > /tmp/regen.json
+          diff -u tools/vauban-verify/tests/cross-lang-vectors.json /tmp/regen.json
+        # If this step fails, either:
+        #   - The TS reference has drifted (intentional → commit regenerated JSON)
+        #   - Or someone edited the JSON without regenerating (revert the edit)

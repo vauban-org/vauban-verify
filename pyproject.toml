@@ -1,0 +1,41 @@
+[project]
+name = "vauban-verify"
+version = "1.0.0"
+description = "Offline cryptographic verifier for Vauban Command Center proof certificates."
+readme = "README.md"
+license = { text = "MIT" }
+authors = [{ name = "Vauban", email = "ops@vauban.tech" }]
+requires-python = ">=3.10"
+dependencies = ["starknet-py>=0.24.0"]
+keywords = ["starknet", "poseidon", "merkle", "zk", "proof", "verifier"]
+classifiers = [
+  "Development Status :: 5 - Production/Stable",
+  "Intended Audience :: Developers",
+  "License :: OSI Approved :: MIT License",
+  "Operating System :: OS Independent",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Topic :: Security :: Cryptography",
+]
+
+[project.urls]
+Homepage = "https://vauban.tech"
+Repository = "https://github.com/seritalien/command-center"
+
+[project.scripts]
+vauban-verify = "vauban_verify.__main__:main"
+
+[project.optional-dependencies]
+test = ["pytest>=7.0"]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["vauban_verify"]
+
+[tool.hatch.build.targets.sdist]
+include = ["vauban_verify", "tests", "README.md", "pyproject.toml"]
